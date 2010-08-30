@@ -28,6 +28,10 @@ module MongoMapper
           @associations = hash
         end
 
+        def reflect_on_association(association)
+          associations[association].type || nil
+        end
+
         private
           def create_association(type, name, options, &extension)
             association = Associations::Base.new(type, name, options, &extension)

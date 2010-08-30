@@ -208,5 +208,4 @@ class AssociationBaseTest < Test::Unit::TestCase
       base.proxy_class.should == InArrayProxy
     end
   end
-
 end

@@ -41,4 +41,25 @@ class AssociationsTest < Test::Unit::TestCase
     post1 = post1.reload
     post1.tags.should == [tag1]
   end
+
+  should "allow reflect_on_association" do
+    class AwesomeUser
+      include MongoMapper::Document
+
+      one :awesome_blog
+    end
+    class AwesomeBlog
+      include MongoMapper::Document
+
+      belongs_to :awesome_user
+      many :awesome_posts
+    end
+    class AwesomePost
+      include MongoMapper::Document
+      key :title, String
+    end
+
+    AwesomeUser.reflect_on_association(:awesome_blog).should == :one
+    AwesomeBlog.reflect_on_association(:awesome_posts).should == :many
+  end
 end
